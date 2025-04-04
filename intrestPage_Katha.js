@@ -14,6 +14,7 @@ function calIntrest(){
     let dd=tdd-ldd;
     let mm=tdm-ldm;
     let yy=tdy-ldy;
+    let yes=true;
     if(dd<0){
         mm--;
         dd+=30;
@@ -22,18 +23,31 @@ function calIntrest(){
         yy--;
         mm+=12;
     }
+    if(mm===0&&yy===0) yes=false;
     let intrest=0.0;
     let aamt=amt;let ddd=dd;let mmm=mm;let yyy=yy;
-    while(yy>0){
-        let z=12*((amt/100)*i);
-        intrest+=(12*((amt/100)*i));
-        amt+=12*((amt/100)*i);
-        // System.out.println("in Intrest : "+intrest+" amount : "+amt+" yy="+yy+" yearly:"+z);
-        yy--;
+    if(yes){
+        while(yy>0){
+            let z=12*((amt/100)*i);
+            intrest+=(12*((amt/100)*i));
+            amt+=12*((amt/100)*i);
+            //  System.out.println("in Intrest : "+intrest+" amount : "+amt+" yy="+yy+" yearly:"+z);
+            console.log("in Intrest : "+intrest+" amount : "+amt+" yy="+yy+" yearly:"+z);
+            yy--;
+            if(yy===1&&mm===0){
+                mm=12;
+                break;
+            } 
+        }
+        console.log("\n\nout 1 Intrest : "+intrest+" amount : "+amt+" yy="+yy+" mm="+mm+" dd="+dd);
+        // System.out.println("\n\nout 1 Intrest : "+intrest+" amount : "+amt+" yy="+yy);
+        if(mm>0) intrest+=((mm)*((amt/100)*i));
+        if(dd>0) intrest+=(dd*(((amt/100)*i)/30));
+        console.log("\n\nout 2 Intrest : "+intrest+" amount : "+amt+" yy="+yy+" mm="+mm+" dd="+dd);
+        if(mm===0&&yyy===0)intrest-=((aamt/100)*i);
+        else intrest-=((amt/100)*i);
     }
-    // System.out.println("\n\nout 1 Intrest : "+intrest+" amount : "+amt+" yy="+yy);
-    intrest+=((mm-1)*((amt/100)*i));
-    intrest+=(dd*(((amt/100)*i)/30));
+    console.log("\n\nout 3 Intrest : "+intrest+" amount : "+amt+" yy="+yy+" mm="+mm+" dd="+dd);
     let total=intrest+aamt;
     document.getElementById("result").innerHTML=`
         <b style='color:blue;'>Details of Loan   (Daily Intrest) --></b><br><br>
